@@ -1,4 +1,4 @@
-# xz_admin_v2
+# mychat_admin_v2
 
 ## Project setup
 ```
