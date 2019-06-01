@@ -61,3 +61,14 @@ server.get('/msgs',(req,res)=>{
         res.send({code:1,msg:"获取成功",data:result});
     })
 })
+
+// 通讯录信息 
+server.get('/addr',(req,res)=>{
+    var uid=req.session.uid;
+    var sql="SELECT id,img,title FROM address_list WHERE uid=?"
+    pool.query(sql,[uid],(err,result)=>{
+        if(err) throw err;
+        console.log(err);
+        res.send({code:1,msg:"获取成功",data:result})
+    })
+})
