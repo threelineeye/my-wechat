@@ -43,6 +43,8 @@ server.post('/login',(req,res)=>{
         if(result.length>0){
             // 用户信息保存到session中
             req.session.uid = result[0].id;
+            console.log(1111)
+            console.log(req.session)
             // console.log(req.session);
             res.send({code:1,msg:"登录成功"});
         }else{
@@ -53,6 +55,9 @@ server.post('/login',(req,res)=>{
 
 // 2 微信信息内容
 server.get('/msgs',(req,res)=>{
+    console.log(2222)
+    console.log(req.session)
+
     var uid = req.session.uid;
     var sql = "SELECT id,img,title,subtitle,time FROM chat_info WHERE uid=?";
     pool.query(sql,[uid],(err,result)=>{
@@ -65,7 +70,7 @@ server.get('/msgs',(req,res)=>{
 // 通讯录信息 
 server.get('/addr',(req,res)=>{
     var uid=req.session.uid;
-    var sql="SELECT id,img,title FROM address_list WHERE uid=?"
+    var sql="SELECT id,img,title FROM address_list WHERE uid=? ORDER BY title ASC";
     pool.query(sql,[uid],(err,result)=>{
         if(err) throw err;
         console.log(err);
