@@ -37,11 +37,15 @@ export default {
         padding:0 7px;
         background-color:#EDEDED;
         color:#000;
-        font-size:18px;
+        font-size:19px;
         height: 48px;
         top:0px;
     }
-    .page-head>span{margin-left:10px}
+    .page-head>span{
+        margin-left:10px;
+        font-weight: 500;
+        letter-spacing: 3px;
+    }
     .right-head{
         display:flex;
         justify-content: space-between;

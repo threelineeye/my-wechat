@@ -2,8 +2,8 @@
     <div class="page-tabbar">
         <div class="page-wrap">
             <!-- 标题子组件 -->
-            <titlebar 
-            leftTitle="微信"
+            <titlebar :class="topbar"
+            :leftTitle="leftTitle"
             :rightFirstImg="require('@/assets/search.png')"
             :rightLastImg="require('@/assets/addition.png')"
             :search="search"
@@ -11,7 +11,7 @@
             <!-- 48px占位 -->
             <div style="height:48px;"></div>
             <!-- 切换面板 -->
-            <mt-tab-container v-model="selected" class="page-tabbar-container">
+            <mt-tab-container v-model="selected"  class="page-tabbar-container">
                 <mt-tab-container-item id="msg">
                     <message></message>
                 </mt-tab-container-item>
@@ -56,6 +56,8 @@ import tabbarIcon from './common/TabBarIcon'
 export default {
     data(){ 
         return { 
+            title:['微信','通讯录','发现'],
+            leftTitle:'微信',
             // 面板中显示子组件id
             selected:"msg",
             // 创建数组保存图片焦点状态
@@ -65,7 +67,9 @@ export default {
                 {isSelect:false},
                 {isSelect:false},
             ],
-            id:["msg","contacts","find","me"]
+            id:["msg","contacts","find","me"],
+            list:[],
+            topbar:{titlebar:false}
         }
     },
     components:{
@@ -77,6 +81,8 @@ export default {
         search(){},
         add(){},
         changeState(i){
+            // 每次选择改变titlebar的名字
+            this.leftTitle=this.title[i];
             this.selected = this.id[i];
             // 对所有的状态变为false
             for(var j=0;j<this.currentIndex.length;j++){
@@ -84,11 +90,34 @@ export default {
             }
             // 给触发事件的状态显示true
             this.currentIndex[i].isSelect = true;
+            // 判断i=3即点击到'我的'时隐藏上面的titlebar
+            if(i>=3){
+                this.topbar.titlebar=true;
+            }else{
+                this.topbar.titlebar=false;
+            }
         }
+    },
+    created(){
+        var url = "msgs";
+        // 发送ajax请求
+        this.axios.get(url).then(result=>{
+            this.list = result.data.data;
+            // 判断登录状态，没登录就跳转到登录界面
+            if(this.list.length==0){
+                this.$router.push('/login')
+            }
+        })
     }
 }
 </script>
 
 <style scoped>
-
+    .page-wrap{
+        padding-bottom: 58px;
+    }
+    /* 修改tabbar默认字体颜色 */
+    .mint-tabbar>.mint-tab-item{color:#999999}
+    .mint-tabbar>.mint-tab-item.is-selected{background-color:transparent;color:#09bb07 }
+    .titlebar{display:none}
 </style>

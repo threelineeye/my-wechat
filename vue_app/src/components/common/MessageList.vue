@@ -38,11 +38,16 @@ export default {
             })
         },
         clickItem(n){
+            // console.log(n);
             // 创建一个长度为n的空数组，作为每次点击重新创建
-            this.itemclass=new Array(n);
+            this.itemclass=new Array(n+1);
+            // console.log(this.itemclass)
             // 每次单击获得的n-1与<message>遍历中的i一致
             // 在数组n-1位置添加{itembg:true}
             this.itemclass.splice(n,1,{itembg:true});
+            setTimeout(()=>{
+                this.itemclass.splice(n,1,{itembg:false});
+            },1000);
         }
     },
 }

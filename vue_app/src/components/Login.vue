@@ -13,7 +13,7 @@ export default {
     data(){
         return {
             uname:"",
-            upwd:""
+            upwd:"",
         }
     },
     methods:{
@@ -63,7 +63,7 @@ export default {
                     if(code==-1){
                         this.$toast(msg)
                     }else{
-                        this.$router.push("/")
+                        this.$router.push("/loginbg")
                     }
                 })
             }
@@ -72,6 +72,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
