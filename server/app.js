@@ -65,7 +65,7 @@ server.get('/msgs',(req,res)=>{
     })
 })
 
-// 通讯录信息 
+// 3 通讯录信息 
 server.get('/addr',(req,res)=>{
     var uid=req.session.uid;
     var sql="SELECT id,img,title FROM address_list WHERE uid=? ORDER BY title ASC";
@@ -74,4 +74,10 @@ server.get('/addr',(req,res)=>{
         console.log(err);
         res.send({code:1,msg:"获取成功",data:result})
     })
+})
+
+// 4 用户注销
+server.get('/exit',(req,res)=>{
+   req.session.uid = null;
+   res.send({code:0,msg:'注销成功'})
 })
