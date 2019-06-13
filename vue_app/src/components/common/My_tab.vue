@@ -35,7 +35,7 @@
                 <img src="@/assets/right.png" alt="#" width="25">
                 <img slot="icon" src="@/assets/icon_me_smail.png" alt="#" width="30" height="30" style="margin-right:10px">
             </mt-cell>
-            <mt-cell title='设置' class="selectbar" style="margin:10px 0;">
+            <mt-cell title='设置' class="selectbar" style="margin:10px 0;" @click.native="setting">
                 <img src="@/assets/right.png" alt="#" width="25">
                 <img slot="icon" src="@/assets/icon_me_setting.png" alt="#" width="30" height="30" style="margin-right:10px">
             </mt-cell>
@@ -44,7 +44,14 @@
 </template>
 <script>
 export default {
-    
+    data(){
+        return {}
+    },
+    methods:{
+        setting(){
+            this.$router.push('/setting');
+        }
+    }
 }
 </script>
 <style scoped>
@@ -100,5 +107,7 @@ export default {
         padding: 4px 2px;
         font-size: 20px;
         color:#000;
+        border-bottom: 1px solid #d9d9d9
+
     }
 </style>
